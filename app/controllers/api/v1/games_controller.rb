@@ -14,12 +14,14 @@ class Api::V1::GamesController < Api::V1::ApiController
 
   def code
     code = params[:game][:code]
-    between = DateTime.now - 1.hour..DateTime + 1.hour
+    between = (DateTime.now - 1.hour)..(DateTime.now + 1.hour)
     
     game = Game.where(
       code: code,
       created_at: between,
     ).first
+
+    Player.where(game: game, user: current_user).first_or_create
 
     if game
       render json: game, include: 'players.user'
