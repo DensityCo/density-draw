@@ -1,3 +1,13 @@
 Rails.application.routes.draw do
-  # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html
+  devise_for :admin_users, ActiveAdmin::Devise.config
+  ActiveAdmin.routes(self)
+
+
+  namespace :api, defaults: {format: 'json'} do
+    namespace :v1 do
+      resources :games
+    end
+  end
+
+  root to: "home#health_check"
 end
