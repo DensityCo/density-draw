@@ -7,9 +7,7 @@ module Secured
     # the jwt is verified by now, so we can trust these fields
     # if we can't find the user, just create them
     # note: a user might not have a uid, if they were invited by another user    
-    puts "HELLO!!!!2"
     if Rails.env.development?
-      puts "HELLO!!!!"
       @current_user = User.first
     else
       @token = JsonWebToken.verify(http_token)
@@ -21,6 +19,10 @@ module Secured
 
     rescue JWT::VerificationError, JWT::DecodeError
       render json: { errors: ['Not Authenticated'] }, status: :unauthorized
+  end
+
+  def current_user
+    @current_user
   end
 
   private

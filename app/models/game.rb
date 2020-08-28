@@ -1,4 +1,7 @@
 class Game < ApplicationRecord
+  has_many :players
+  has_many :users, through: :players
+
   before_create :generate_code
 
   def generate_code
