@@ -1,0 +1,9 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Prompt:</strong>
+  <%= @question_template.prompt %>
+</p>
+
+<%= link_to 'Edit', edit_question_template_path(@question_template) %> |
+<%= link_to 'Back', question_templates_path %>

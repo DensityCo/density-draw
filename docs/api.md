@@ -37,7 +37,7 @@ POST /api/v1/games/code
 
 ### Get my question
 
-GET /api/v1/games/481/questions/me
+GET /api/v1/games/481/question
 *Response*
 ```
 {
@@ -45,9 +45,7 @@ GET /api/v1/games/481/questions/me
   "game_id": 481,
   "user_id": 42,
   "prompt": "R56",
-  "image": {
-    "url": "image.s3.xyz"
-  },
+  "image_url": "image.s3.xyz",
   "answers": [
     {
       "user_id": 3,

@@ -1,4 +1,7 @@
 Rails.application.routes.draw do  
+  resources :answers
+  resources :questions
+  resources :question_templates
   resources :players
   ActiveAdmin.routes(self)
   namespace :api, defaults: { format: 'json' } do
@@ -7,6 +10,9 @@ Rails.application.routes.draw do
       resources :games do
         collection do
           post :code
+        end
+        member do
+          get :question
         end
       end
       

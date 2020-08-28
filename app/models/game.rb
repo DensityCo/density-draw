@@ -1,6 +1,7 @@
 class Game < ApplicationRecord
   has_many :players
   has_many :users, through: :players
+  has_many :questions
 
   before_create :generate_code
 

@@ -1,5 +1,5 @@
 class Api::V1::GamesController < Api::V1::ApiController
-  before_action :set_game, only: [:show]
+  before_action :set_game, only: [:show, :question]
 
   def create
     game = Game.create
@@ -28,7 +28,17 @@ class Api::V1::GamesController < Api::V1::ApiController
     else
       render json: { errors: "Game with this code does not exist" }, status: 404
     end
+  end
 
+  def question
+    question = Question.where(game: @game, user: current_user).first_or_create
+
+    if question.prompt == nil
+      qt = QuestionTemplate.where.not(id: @game.questions.map(&:question_template_id)).order('random()').first
+      question.update(prompt: qt.prompt)
+    end
+
+    render json: question
   end
 
   private
