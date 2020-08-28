@@ -69,7 +69,7 @@ ActiveRecord::Schema.define(version: 2020_08_28_215038) do
     t.string "image_url"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.bigint "question_template_id", null: false
+    t.bigint "question_template_id", null: true
     t.index ["game_id"], name: "index_questions_on_game_id"
     t.index ["question_template_id"], name: "index_questions_on_question_template_id"
     t.index ["user_id"], name: "index_questions_on_user_id"
