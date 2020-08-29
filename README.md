@@ -1,24 +1,10 @@
-# README
+# Density Draw
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+## Running locally
 
-Things you may want to cover:
+### Local Setup
+Run the below commands to set up your database
+`rake db:create`
+`rake db:setup`
 
-* Ruby version
-
-* System dependencies
-
-* Configuration
-
-* Database creation
-
-* Database initialization
-
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
+To run with activejob / sidekiq, run `foreman start -f Procfile.dev` to kick off web/worker processes.

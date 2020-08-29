@@ -1,11 +1,15 @@
 class Api::V1::GamesController < Api::V1::ApiController
-  before_action :set_game, only: [:show, :question]
+  before_action :set_game, only: [:show, :question, :start]
 
   def create
     game = Game.create
     Player.create(game: game, user: current_user)
 
     render json: game, include: 'players.user'
+  end
+
+  def start
+    ActionCable.server.broadcast "game_#{@game.id}", game: serialized
   end
 
   def show

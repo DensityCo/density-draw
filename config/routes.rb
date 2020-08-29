@@ -1,9 +1,11 @@
 Rails.application.routes.draw do  
-  resources :answers
-  resources :questions
-  resources :question_templates
-  resources :players
+  require "sidekiq/web"
+
+  mount ActionCable.server => '/cable'
+  mount Sidekiq::Web, at: "/sidekiq"
+
   ActiveAdmin.routes(self)
+
   namespace :api, defaults: { format: 'json' } do
     namespace :v1 do
       
