@@ -13,6 +13,14 @@ module Secured
       @token = JsonWebToken.verify(http_token)
       @email = @token[0]["email"]
       @current_user = User.where(email: @email).first_or_create
+      begin
+        @name = @token[0]["name"]
+        @picture = @token[0]["picture"]
+        @sub = @token[0]["sub"]
+        @current_user.update(name: @name, image_url: @picture, sub: @sub)
+      rescue
+        puts "Couldn't update user info"
+      end
     end
 
     raise "Current user could not be authorized." if !@current_user
