@@ -19,9 +19,12 @@ Rails.application.routes.draw do
         end
       end
 
+      resources :answers
+
       resources :questions do
         member do
           put :image
+          put :answer
         end
       end
       

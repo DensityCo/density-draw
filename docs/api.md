@@ -115,10 +115,10 @@ GET /api/v1/games/481/question
 ```
 
 
-## Images
+## Drawings
 
-### Submit Image
-PUT /api/v1/questions/:id/image (only one image per question)
+### Submit a Drawing
+PUT /api/v1/questions/:id/drawing (only one drawing per question)
 
 *Request*
 ```
@@ -128,6 +128,7 @@ PUT /api/v1/questions/:id/image (only one image per question)
 ```
 
 *Response*
+A question object...
 ```
 {
   "id": 1898,
@@ -135,32 +136,19 @@ PUT /api/v1/questions/:id/image (only one image per question)
   "user_id": 42,
   "prompt": "R56",
   "image_url": "image.s3.xyz",
-  "answers": [
-    {
-      "user_id": 3,
-      "guess": "Gorilla",
-      "is_correct": true,
-      "is_funny": false
-    },
-    {
-      "user_id": 5,
-      "guess": "Doggy",
-      "is_correct": false,
-      "is_funny": true
-    }
-  ]
+  "answers": []
 }
 ```
 
 ## Answers
 
 ### Submit Answer
-POST /api/v1/questions/:id/answers
+POST /api/v1/questions/:id/answer
 
 *Request*
 ```
 {
-  "guess": "Gorilla",
+  "guess": "Gorilla"
 }
 ```
 
@@ -170,7 +158,7 @@ POST /api/v1/questions/:id/answers
   "question_id": 4,
   "user_id": 1,
   "guess": "Gorilla",
-  "is_correct": false,
-  "is_funny": false
+  "is_correct": null,
+  "is_funny": null
 }
 ```

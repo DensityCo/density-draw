@@ -18,7 +18,7 @@ class Api::V1::GamesController < Api::V1::ApiController
   end
 
   def code
-    code = params[:game][:code]
+    code = params[:code]
     between = (DateTime.now - 1.hour)..(DateTime.now + 1.hour)
     
     @game = Game.where(
