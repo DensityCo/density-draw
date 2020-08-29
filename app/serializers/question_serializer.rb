@@ -1,6 +1,6 @@
 class QuestionSerializer < ActiveModel::Serializer
   attributes :id, :prompt, :image_url
-  has_one :game
-  has_one :user
+  belongs_to :game
+  belongs_to :user
   has_many :answers
 end

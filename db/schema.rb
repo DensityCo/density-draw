@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_08_28_215038) do
+ActiveRecord::Schema.define(version: 2020_08_29_010415) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -52,6 +52,7 @@ ActiveRecord::Schema.define(version: 2020_08_28_215038) do
     t.bigint "user_id", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.boolean "is_ready"
     t.index ["game_id"], name: "index_players_on_game_id"
     t.index ["user_id"], name: "index_players_on_user_id"
   end
@@ -69,7 +70,7 @@ ActiveRecord::Schema.define(version: 2020_08_28_215038) do
     t.string "image_url"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.bigint "question_template_id", null: true
+    t.bigint "question_template_id"
     t.index ["game_id"], name: "index_questions_on_game_id"
     t.index ["question_template_id"], name: "index_questions_on_question_template_id"
     t.index ["user_id"], name: "index_questions_on_user_id"

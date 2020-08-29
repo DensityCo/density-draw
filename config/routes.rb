@@ -14,7 +14,14 @@ Rails.application.routes.draw do
           post :code
         end
         member do
+          post :start
           get :question
+        end
+      end
+
+      resources :questions do
+        member do
+          put :image
         end
       end
       

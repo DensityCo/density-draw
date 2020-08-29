@@ -33,6 +33,41 @@ POST /api/v1/games/code
 }
 ```
 
+### Start the game
+
+Everybody's in. Let's go!
+
+POST /api/v1/games/:id/start
+
+*Response*
+```
+{
+  "id": 4,
+  "code": "QNLD",
+  "players": [
+    {
+      "id": 1,
+      "user": {
+        "id": 2,
+        "name": "Fake",
+        "image_url": "someurl.com",
+        "email": "fake123@gmail.com"
+      }
+    },
+    {
+      "id": 2,
+      "user": {
+        "id": 1,
+        "name": "Jim",
+        "image_url": "someurl.com",
+        "email": "jim@density.io"
+      }
+    }
+  ]
+}
+```
+
+
 ## Questions
 
 ### Get my question
@@ -66,8 +101,9 @@ GET /api/v1/games/481/question
 
 ## Images
 
-### Create Image
-PUT /api/v1/questions/:id/images (only one image per question)
+### Submit Image
+PUT /api/v1/questions/:id/image (only one image per question)
+
 *Request*
 ```
 {

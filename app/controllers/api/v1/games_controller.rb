@@ -2,33 +2,34 @@ class Api::V1::GamesController < Api::V1::ApiController
   before_action :set_game, only: [:show, :question, :start]
 
   def create
-    game = Game.create
-    Player.create(game: game, user: current_user)
+    @game = Game.create
+    Player.create(game: @game, user: current_user)
 
-    render json: game, include: 'players.user'
+    render json: @game, include: 'players.user,questions'
   end
 
   def start
-    ActionCable.server.broadcast "game_#{@game.id}", game: serialized
+    ActionCable.server.broadcast "game_#{@game.id}", status: "start_drawing"
+    render json: @game, include: 'players.user,questions'
   end
 
   def show
-    render json: @game, include: 'players.user'
+    render json: @game, include: 'players.user,questions'
   end
 
   def code
     code = params[:game][:code]
     between = (DateTime.now - 1.hour)..(DateTime.now + 1.hour)
     
-    game = Game.where(
+    @game = Game.where(
       code: code,
       created_at: between,
     ).first
 
-    Player.where(game: game, user: current_user).first_or_create
+    Player.where(game: @game, user: current_user).first_or_create
 
-    if game
-      render json: game, include: 'players.user'
+    if @game
+      render json: @game, include: 'players.user,questions'
     else
       render json: { errors: "Game with this code does not exist" }, status: 404
     end
