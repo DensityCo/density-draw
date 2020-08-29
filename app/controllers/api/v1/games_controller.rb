@@ -9,7 +9,7 @@ class Api::V1::GamesController < Api::V1::ApiController
   end
 
   def start
-    ActionCable.server.broadcast "game_#{@game.id}", status: "start_drawing"
+    ActionCable.server.broadcast "game_#{@game.id}", { status: "start_drawing", game: @game }
     render json: @game, include: 'players.user,questions.answers'
   end
 
@@ -27,6 +27,8 @@ class Api::V1::GamesController < Api::V1::ApiController
     ).first
 
     Player.where(game: @game, user: current_user).first_or_create
+
+    ActionCable.server.broadcast "game_#{@game.id}", { status: "player_joined", game: @game }
 
     if @game
       render json: @game, include: 'players.user,questions.answers'
