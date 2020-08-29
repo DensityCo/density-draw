@@ -7,13 +7,13 @@ module Secured
     # the jwt is verified by now, so we can trust these fields
     # if we can't find the user, just create them
     # note: a user might not have a uid, if they were invited by another user    
-    # if Rails.env.development?
+    if Rails.env.development?
       @current_user = User.first
-    # else
-    #   @token = JsonWebToken.verify(http_token)
-    #   @email = @token[0]["email"]
-    #   @current_user = User.where(email: @email).first
-    # end
+    else
+      @token = JsonWebToken.verify(http_token)
+      @email = @token[0]["email"]
+      @current_user = User.where(email: @email).first_or_create
+    end
 
     raise "Current user could not be authorized." if !@current_user
 
