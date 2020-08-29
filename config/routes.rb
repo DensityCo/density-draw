@@ -31,5 +31,5 @@ Rails.application.routes.draw do
     end
   end
 
-  root to: "home#health_check"
+  root to: "home#login"
 end
