@@ -1,4 +1,4 @@
-class Api::V1::AnswerwController < Api::V1::ApiController
+class Api::V1::AnswersController < Api::V1::ApiController
   before_action :set_answer, only: [:update]
 
   def update
