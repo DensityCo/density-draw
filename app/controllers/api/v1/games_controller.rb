@@ -3,7 +3,7 @@ class Api::V1::GamesController < Api::V1::ApiController
 
   def create
     @game = Game.create
-    Player.create(game_id: @game.id, user: current_user)
+    Player.create(game: @game, user: current_user)
 
     render json: @game, include: 'players.user,questions.answers'
   end
