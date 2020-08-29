@@ -5,16 +5,16 @@ class Api::V1::GamesController < Api::V1::ApiController
     @game = Game.create
     Player.create(game: @game, user: current_user)
 
-    render json: @game, include: 'players.user,questions'
+    render json: @game, include: 'players.user,questions.answers'
   end
 
   def start
     ActionCable.server.broadcast "game_#{@game.id}", status: "start_drawing"
-    render json: @game, include: 'players.user,questions'
+    render json: @game, include: 'players.user,questions.answers'
   end
 
   def show
-    render json: @game, include: 'players.user,questions'
+    render json: @game, include: 'players.user,questions.answers'
   end
 
   def code
@@ -29,7 +29,7 @@ class Api::V1::GamesController < Api::V1::ApiController
     Player.where(game: @game, user: current_user).first_or_create
 
     if @game
-      render json: @game, include: 'players.user,questions'
+      render json: @game, include: 'players.user,questions.answers'
     else
       render json: { errors: "Game with this code does not exist" }, status: 404
     end

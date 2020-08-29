@@ -44,13 +44,14 @@ POST /api/v1/games/:id/start
 {
   "id": 4,
   "code": "QNLD",
+  "current_question": null,
   "players": [
     {
       "id": 1,
       "user": {
         "id": 2,
         "name": "Fake",
-        "image_url": "someurl.com",
+        "image_url": "example.com/test2",
         "email": "fake123@gmail.com"
       }
     },
@@ -59,9 +60,24 @@ POST /api/v1/games/:id/start
       "user": {
         "id": 1,
         "name": "Jim",
-        "image_url": "someurl.com",
+        "image_url": "example.com/test124",
         "email": "jim@density.io"
       }
+    }
+  ],
+  "questions": [
+    {
+      "id": 3,
+      "prompt": "DPU",
+      "image_url": "google.com",
+      "answers": [
+        {
+          "id": 1,
+          "guess": "robot",
+          "is_correct": null,
+          "is_funny": true
+        }
+      ]
     }
   ]
 }

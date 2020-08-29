@@ -1,11 +1,18 @@
 class Api::V1::QuestionsController < Api::V1::ApiController
-  before_action :set_question, only: [:images]
+  before_action :set_question, only: [:image]
 
   def image
     @question.image_url = params[:question][:image_url]
     @question.save
     
-    render json: question
+    @game = @question.game
+    serialized = GameSerializer.new(@game).serializable_hash(include: [:questions, players: [:user]])
+    ActionCable.server.broadcast "game_#{@game.id}", {
+      status: "drawing_complete",
+      game: serialized
+    }
+
+    render json: @question
   end
 
   private
