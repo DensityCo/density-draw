@@ -88,7 +88,7 @@ POST /api/v1/games/:id/start
 
 ### Get my question
 
-GET /api/v1/games/481/question
+GET /api/v1/games/481/my_question
 *Response*
 ```
 {

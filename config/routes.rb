@@ -15,7 +15,7 @@ Rails.application.routes.draw do
         end
         member do
           post :start
-          get :question
+          get :my_question
         end
       end
 

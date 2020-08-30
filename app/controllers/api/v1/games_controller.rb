@@ -37,7 +37,7 @@ class Api::V1::GamesController < Api::V1::ApiController
     end
   end
 
-  def question
+  def my_question
     question = Question.where(game: @game, user: current_user).first_or_create
 
     if question.prompt == nil
