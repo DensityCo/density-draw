@@ -1,5 +1,5 @@
 class Api::V1::GamesController < Api::V1::ApiController
-  before_action :set_game, only: [:show, :question, :start]
+  before_action :set_game, only: [:show, :my_question, :start]
 
   def create
     @game = Game.create
