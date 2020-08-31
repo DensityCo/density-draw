@@ -9,7 +9,9 @@ class Api::V1::GamesController < Api::V1::ApiController
   end
 
   def start
-    ActionCable.server.broadcast "game_#{@game.id}", { status: "start_drawing", game: @game }
+    serialized = GameSerializer.new(@game).serializable_hash(include: [questions: [:answers], players: [:user]])
+    ActionCable.server.broadcast "game_#{@game.id}", { status: "start_drawing", game: serialized }
+    
     render json: @game, include: 'players.user,questions.answers'
   end
 
@@ -28,7 +30,8 @@ class Api::V1::GamesController < Api::V1::ApiController
 
     Player.where(game: @game, user: current_user).first_or_create
 
-    ActionCable.server.broadcast "game_#{@game.id}", { status: "player_joined", game: @game }
+    serialized = GameSerializer.new(@game).serializable_hash(include: [questions: [:answers], players: [:user]])
+    ActionCable.server.broadcast "game_#{@game.id}", { status: "player_joined", game: serialized }
 
     if @game
       render json: @game, include: 'players.user,questions.answers'
