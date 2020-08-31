@@ -1,5 +1,9 @@
 class Api::V1::QuestionsController < Api::V1::ApiController
-  before_action :set_question, only: [:drawing, :answer]
+  before_action :set_question, only: [:show, :drawing, :answer]
+
+  def show
+    render json: @question
+  end
 
   def drawing
     @question.image_url = params[:image_url]
