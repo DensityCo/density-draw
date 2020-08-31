@@ -29,12 +29,12 @@ class Api::V1::GamesController < Api::V1::ApiController
       created_at: between,
     ).first
 
-    Player.where(game: @game, user: current_user).first_or_create
-
-    serialized = GameSerializer.new(@game).serializable_hash(include: [questions: [:answers], players: [:user]])
-    ActionCable.server.broadcast "game_#{@game.id}", { status: "player_joined", game: serialized }
-
     if @game
+      Player.where(game: @game, user: current_user).first_or_create
+
+      serialized = GameSerializer.new(@game).serializable_hash(include: [questions: [:answers], players: [:user]])
+      ActionCable.server.broadcast "game_#{@game.id}", { status: "player_joined", game: serialized }
+
       render json: @game, include: 'players.user,questions.answers'
     else
       render json: { errors: "Game with this code does not exist" }, status: 404
