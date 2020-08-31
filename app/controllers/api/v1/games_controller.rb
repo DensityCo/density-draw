@@ -9,6 +9,7 @@ class Api::V1::GamesController < Api::V1::ApiController
   end
 
   def start
+    @game.update(game_state: 'drawing')
     serialized = GameSerializer.new(@game).serializable_hash(include: [questions: [:answers], players: [:user]])
     ActionCable.server.broadcast "game_#{@game.id}", { status: "start_drawing", game: serialized }
     
