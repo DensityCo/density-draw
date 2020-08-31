@@ -23,7 +23,7 @@ Rails.application.routes.draw do
 
       resources :questions do
         member do
-          put :image
+          put :drawing
           put :answer
         end
       end
