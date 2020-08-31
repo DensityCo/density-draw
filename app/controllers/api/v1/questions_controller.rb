@@ -17,7 +17,7 @@ class Api::V1::QuestionsController < Api::V1::ApiController
         # set the first question as the current question
         # and then announce that we should start guessing
         first_question = @game.questions.first
-        @game.update(current_question: first_question)
+        @game.update(current_question: first_question, game_state: 'guessing')
 
         serialized = GameSerializer.new(@game).serializable_hash(include: [questions: [:answers], players: [:user]])
         ActionCable.server.broadcast "game_#{@game.id}", {
